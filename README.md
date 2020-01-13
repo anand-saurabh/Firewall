@@ -8,9 +8,11 @@ a)inbound_tcp data b)outbound_tcp data c)inbound_udp data d)outbound_udp data
 This helps to reduce the number of records we need to read for matching rules (as we are not keeping rules in-memory as rules can be too many) while we need to test our input data. Suppose, if we break the big input rules files based on Ips or port ranges, there will be a lot of small files created and we need to maintain an in-memory look-up of what port ranges or IP address ranges a particular smaller file fragment contains. So, I decided to break the bigger file based on direction (inbound/outbound) and protocol(tcp or udp). This gives us only 4 smaller splitted files.
 
 2) Further, sort the records in each splitted file based on the port numbers in descending order. This helps to find relevant rules record from the file without reading the whole file every time we get a test data.
+
+
 How does the program work:
 
-1) First, the constrctor takes the input rules file. After that, we call a method to break the bigger input rules file into 4 smaller .csv files as described in step 1.
+1) First, the constructor takes the input rules file. After that, we call a method to break the bigger input rules file into 4 smaller .csv files as described in step 1.
 
 2) Suppose the test data given to accept packet method is: outbound", "tcp", 12000, "192.169.9.11
 
