@@ -34,5 +34,5 @@ Future enhancements:
 1) We can further come up with a model where we can create an index based query searching like how it happens in read world databases. We can break the bigger input rules file into smaller limited number of files where each file would contain rules for a range of port or ip addresses only. We can maintain the names of these file and what ranges of port or ip address it contains in a file or in-memory(if feasible).This will reduce  the number of reads (the number of rows in a csv to be read) which we need to do to find whether the test input is valid or not.
 
 Testing:
-To test this, I wrote unit test cases using  junit and used a test input .csv file and tested the rules.
+To test this, I wrote unit test cases using junit and used a test input .csv file and tested the rules (using assert statements in test cases) for different ips,port number,protocol and direction.
 
