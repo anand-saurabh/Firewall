@@ -158,7 +158,7 @@ public class FirewallImpl implements Firewall {
         myWriter4.close();
     }
 
-    public void writeToFile(Map<String, List<String>> map) throws IOException {
+    private void writeToFile(Map<String, List<String>> map) throws IOException {
 
         List<String> val1 = map.get("inbound_tcp");
 
@@ -184,10 +184,6 @@ public class FirewallImpl implements Firewall {
         map.put("outbound_tcp", new ArrayList<>());
         map.put("outbound_udp", new ArrayList<>());
 
-    }
-
-    public FirewallRules getRules() {
-        return rules;
     }
 
     public void setRules(FirewallRules rules) {

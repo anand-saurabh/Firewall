@@ -5,6 +5,7 @@ import main.java.interfaces.Firewall;
 import main.java.rules.FirewallRules;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
@@ -12,11 +13,17 @@ import static org.junit.Assert.assertEquals;
 public class FirewallImplTest {
 
     Firewall firewall;
+    FirewallRules firewallRules;
+    final static String rootPath = new File("").getAbsolutePath();
 
-    public FirewallImplTest() {
-        FirewallRules firewallRules
+    public FirewallImplTest() throws IOException, ClassNotFoundException {
+        firewallRules
                 = new FirewallRules();
-        firewall = new FirewallImpl(firewallRules);
+        firewall = new FirewallImpl(rootPath + "/src/test/resources/test.csv");
+
+        firewall.setRules(firewallRules);
+        firewall.formRules();
+        firewall.sortAllFiles();
     }
 
     @Test
@@ -27,8 +34,8 @@ public class FirewallImplTest {
     }
 
     @Test
-    public void shouldReturnFalseForInvalidIp() throws IOException {
-        boolean res = firewall.accept_packet("inbound", "tcp", 87, "255.34.21.12321");
+    public void shouldReturnTrueForIpAddress() throws IOException {
+        boolean res = firewall.accept_packet("inbound", "tcp", 87, "255.34.21.123");
         assertEquals(false, res);
     }
 
@@ -45,15 +52,30 @@ public class FirewallImplTest {
     }
 
     @Test
-    public void shouldReturntrueForValidData() throws IOException {
-        boolean res = firewall.accept_packet("inbound", "tcp", 123, "255.34.21.12");
-        assertEquals(true, res);
+    public void shouldReturnFalseForInvalidIpAdd() throws IOException {
+        boolean res = firewall.accept_packet("inbound", "tcp", 123, "231.34.21.12");
+        assertEquals(false, res);
+    }
+
+
+    @Test
+    public void shouldReturnFalseForInvalidData() throws IOException, ClassNotFoundException {
+        boolean res = firewall.accept_packet("inbound", "tcp", 78, "220.170.10.11");
+        assertEquals(false, res);
     }
 
     @Test
-    public void shouldReturnFalseForInvalidIpAdd() throws IOException {
-        boolean res = firewall.accept_packet("inbound", "tcp", 123, "255.34.21.12.1");
+    public void shouldReturnFalseForInvalidPortNumber() throws IOException, ClassNotFoundException {
+
+        boolean res = firewall.accept_packet("inbound", "tcp", 60, "192.170.10.11");
         assertEquals(false, res);
     }
+
+    @Test
+    public void shouldReturnTrueForValidIp() throws IOException, ClassNotFoundException {
+        boolean res = firewall.accept_packet("inbound", "tcp", 78, "192.178.10.1");
+        assertEquals(true, res);
+    }
+
 
 }

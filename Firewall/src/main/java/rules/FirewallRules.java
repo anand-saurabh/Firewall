@@ -69,7 +69,6 @@ public class FirewallRules {
         String prev;
         temp = reader.readLine();
         prev = temp;
-        Integer ipAddress = Integer.parseInt(ip.replaceAll("\\.", ""));
         while(temp != null && !temp.isBlank() && Integer.parseInt(temp.split("\\,")[0].split("\\-")[0]) <= port)
         {
             prev = temp;
@@ -80,7 +79,7 @@ public class FirewallRules {
             String [] str = prev.split("\\,");
             String []portRange = str[0].split("\\-");
             String [] ips = str[1].split("\\-");
-            if(!(port == Integer.parseInt(portRange[0]) || (portRange[1] != null && ((port == Integer.parseInt(portRange[1]))
+            if(!(port == Integer.parseInt(portRange[0]) || (portRange.length == 2 && portRange[1] != null && ((port == Integer.parseInt(portRange[1]))
                     || (port > Integer.parseInt(portRange[0]) && port < Integer.parseInt(portRange[1]))))))
             {
                 return false;
