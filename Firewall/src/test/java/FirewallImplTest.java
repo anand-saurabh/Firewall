@@ -5,6 +5,8 @@ import main.java.interfaces.Firewall;
 import main.java.rules.FirewallRules;
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.junit.Assert.assertEquals;
 
 public class FirewallImplTest {
@@ -18,44 +20,38 @@ public class FirewallImplTest {
     }
 
     @Test
-    public void shouldReturnFalseForInvalidPort()
-    {
+    public void shouldReturnFalseForInvalidPort() throws IOException {
 
         boolean res = firewall.accept_packet("inbound", "tcp", 900000, "255.34.21.12");
         assertEquals(false, res);
     }
 
     @Test
-    public void shouldReturnFalseForInvalidIp()
-    {
+    public void shouldReturnFalseForInvalidIp() throws IOException {
         boolean res = firewall.accept_packet("inbound", "tcp", 87, "255.34.21.12321");
         assertEquals(false, res);
     }
 
     @Test
-    public void shouldReturnFalseForInvalidDirection()
-    {
+    public void shouldReturnFalseForInvalidDirection() throws IOException {
         boolean res = firewall.accept_packet("out", "tcp", 87, "255.34.21.12");
         assertEquals(false, res);
     }
 
     @Test
-    public void shouldReturnFalseForInvalidProtocol()
-    {
+    public void shouldReturnFalseForInvalidProtocol() throws IOException {
         boolean res = firewall.accept_packet("inbound", "ftp", 32, "255.34.21.12");
         assertEquals(false, res);
     }
 
     @Test
-    public void shouldReturntrueForValidData()
-    {
+    public void shouldReturntrueForValidData() throws IOException {
         boolean res = firewall.accept_packet("inbound", "tcp", 123, "255.34.21.12");
         assertEquals(true, res);
     }
 
     @Test
-    public void shouldReturnFalseForInvalidIpAdd()
-    {
+    public void shouldReturnFalseForInvalidIpAdd() throws IOException {
         boolean res = firewall.accept_packet("inbound", "tcp", 123, "255.34.21.12.1");
         assertEquals(false, res);
     }
