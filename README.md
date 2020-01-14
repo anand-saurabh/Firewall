@@ -14,7 +14,9 @@ How does the program work:
 
 1) First, the constructor takes the input rules file. After that, we call a method to break the bigger input rules file into 4 smaller .csv files as described in step 1.
 
-2) Suppose the test data given to accept packet method is: outbound", "tcp", 12000, "192.169.9.11
+2) Second, these small files are sorted in descending order based on port numbers (in case of range, we take the start of port number to sort them). Here we use external sorting to sort each individual small file.
+
+3) Now Suppose the test data given to accept packet method is: outbound", "tcp", 12000, "192.169.9.11
 
 We know that for "direction" as "outbound" and "protocol" as "tcp" we have a separate rules file which we created in step 1 from the large bigger input rules file. So, we start searching from the beginning of the outbound_tcp_output.csv file and look for a record whose port number is just smaller or equal to the port number passed to accept_packet method (as our files are sorted based on port numbers). Once we find this record, we just need to compare the ip address of this record with the one in test data and see if the ip address passed to accept method is valid or not.
 If it is, we return true, else we return false.
