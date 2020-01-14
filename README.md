@@ -3,7 +3,7 @@ My approach:
  
 1) Break the big input .csv file into 4 smaller .csv files containing the rules data based on direction and protocol :
 
-a)inbound_tcp data b)outbound_tcp data c)inbound_udp data d)outbound_udp data
+a) inbound_tcp data b) outbound_tcp data c) inbound_udp data d) outbound_udp data
 
 This helps to reduce the number of records we need to read for matching rules (as we are not keeping rules in-memory as rules can be too many) while we need to test our input data. Suppose, if we break the big input rules files based on Ips or port ranges, there will be a lot of small files created and we need to maintain an in-memory look-up of what port ranges or IP address ranges a particular smaller file fragment contains. So, I decided to break the bigger file based on direction (inbound/outbound) and protocol(tcp or udp). This gives us only 4 smaller splitted files.
 
@@ -31,4 +31,6 @@ Thoughts which I put in for coming up with this solution:
 Future enhancements:
 
 We can further come up with a model where we can create an index-based query searching like how it happens in read world databases. We can break the bigger input rules file into a smaller limited number of files where each file would contain rules for a range of port or ip addresses only. We can maintain the names of these file and what ranges of port or ip address it contains in a file or in-memory(if feasible). This will reduce the number of reads (the number of rows in a csv to be read) which we need to do to find whether the test input is valid or not.
-Testing: To test this, I wrote unit test cases using JUnit and used a test input .csv file and tested the rules (using assert statements in test cases) for different ips, port number, protocol, and direction.
+
+Testing: 
+To test this, I wrote unit test cases using JUnit and used a test input .csv file and tested the rules (using assert statements in test cases) for different ips, port number, protocol, and direction.
