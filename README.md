@@ -14,19 +14,19 @@ How does the program work:
 
 1) First, the constructor takes the input rules file. After that, we call a method to break the bigger input rules file into 4 smaller .csv files as described in step 1.
 
-2) Second, these small files are sorted in descending order based on port numbers (in case of range, we take the start of port number to sort them). Here we use external sorting to sort each individual small file.
+2) Second, these small files are sorted in descending order based on port numbers (in case of range, we take the start of port number to sort them). Here, we use external sorting to sort each individual small file.
 
-3) Now Suppose the test data given to accept packet method is: outbound", "tcp", 12000, "192.169.9.11
+3) Now, suppose the test data given to accept packet method is: "outbound", "tcp", 12000, "192.169.9.11"
 
 We know that for "direction" as "outbound" and "protocol" as "tcp" we have a separate rules file which we created in step 1 from the large bigger input rules file. So, we start searching from the beginning of the outbound_tcp_output.csv file and look for a record whose port number is just smaller or equal to the port number passed to accept_packet method (as our files are sorted based on port numbers). Once we find this record, we just need to compare the ip address of this record with the one in test data and see if the ip address passed to accept method is valid or not.
 If it is, we return true, else we return false.
 
 Thoughts which I put in for coming up with this solution:
 
-1)Input rules file can be very large as described in the problem statement
-2)We can't store these rules (ip and port number ranges for each direction and protocol) records in-memory
-3)We need to limit the number of splitted file we maintain
-4)Also, we shouldn't keep the full file (either the smaller or the main input file) in memory at a time, so used BufferedReader to read line by line each record while matching rules for the test input.
+1) Input rules file can be very large as described in the problem statement
+2) We can't store these rules (ip and port number ranges for each direction and protocol) records in-memory
+3) We need to limit the number of splitted file we maintain
+4) Also, we shouldn't keep the full file (either the smaller or the main input file) in memory at a time, so used BufferedReader to read line by line each record while matching rules for the test input.
 
 Future enhancements:
 
