@@ -1,4 +1,4 @@
-Here is a basic firewall implementation. I have given priority to reduce the number of in-memory data we hold as the input rule file can be very big and we can't store all the rules in a hashmap or similar structure in-memory for our comparison of test data.
+Here is a firewall implementation. I have given priority to reduce the number of in-memory data we hold as the input rule file can be very big and we can't store all the rules in a hashmap or similar structure in-memory for our comparison of test data.
 My approach:
  
 1) Break the big input .csv file into 4 smaller .csv files containing the rules data based on direction and protocol :
