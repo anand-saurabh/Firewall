@@ -37,4 +37,4 @@ To test this, I wrote unit test cases using JUnit and used a test input .csv fil
 
 I have more ideas where we can possibly develop a mix of what to keep in-memory(a kind of smart caching strategy for rules given in file) and what to keep in file(disk). We can further discuss on these approachs over a call.
 
-My preference for teams are in following order from highest to lowest: Data Team , Platform Team.
+
