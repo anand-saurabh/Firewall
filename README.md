@@ -1,4 +1,11 @@
 Here is a firewall implementation. I have given priority to reduce the number of in-memory data we hold as the input rule file can be very big and we can't store all the rules in a hashmap or similar structure in-memory for our comparison of test data.
+
+Sample input data :
+inbound	tcp	80	192.168.1.2,
+outbound	tcp	10000-20000	192.168.10.11,
+inbound	udp	53	192.168.1.1-192.168.2.5,
+outbound	udp	1000-2000	52.12.48.92
+
 My approach:
  
 1) Break the big input .csv file into 4 smaller .csv files containing the rules data based on direction and protocol :
